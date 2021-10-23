@@ -1,0 +1,38 @@
+
+.card{
+    width: 25rem;
+    height: 35rem;
+    border: 3px;
+    border-style: solid;
+    border-color: green;
+    font-size: 2rem;
+    margin-top: 3rem;
+    margin-left: 3rem;
+
+    &--borde{
+        border-color: red;
+    }
+    
+
+    &__imageContain{
+        display: flex;
+        justify-content: center;
+    }
+
+        &__image{
+            display: flex;
+            width: 50%;
+        }
+    
+   &__buttonContainer{
+       display: flex;
+       justify-content: center;
+   }     
+        &__button{
+            display: flex;
+        }
+
+    &__lista{
+        list-style: none;
+    }
+}
