@@ -1,17 +1,39 @@
 import React, {createContext, useState, useEffect} from 'react'
-import carpas from '../../sample/carpas.json'
 import axios from 'axios'
+import data from '../../sample/menu.json'
 
 export const DataContext = createContext();
 
 export const Dataprovider = (props) => {
 
-    const [base,setBase] = useState (carpas)
+    const [menu,setMenu] = useState(data)
+    const [base,setBase] = useState ([])
     const [temperatura, setTemperatura] = useState('')
     const [sky, setSky] = useState('')
     const [cielo, setCielo] = useState('')
 
+    //boton para abrir la tabla
 
+    const [showTabla, setShowTabla] = useState(false)
+    const [seleccion, setSeleccion] = useState('')
+
+    //boton para abrir la tabla del restaurtante
+
+    const [showRmodal, setShowRmodal] = useState(false)
+    const[numero,setNumero] = useState('Seleccione una carpa')
+    
+
+    //estos son para guardar los datos del formulario
+    const [id, setId] = useState('')
+    const [capacidad, setCapacidad] = useState('')
+    const [precio, setPrecio] = useState('')
+    const [nombre, setNombre] = useState('')
+    const [disponible, setDisponible] = useState('')
+    const [estado, setEstado] = useState(true)
+    const [pago, setPago] = useState('')
+    const [carpa, setCarpa] = useState([])
+
+    
     //cargo la temperatura de pinamar en la api
     useEffect( () => {
         const getPost = async () =>{
@@ -34,12 +56,62 @@ export const Dataprovider = (props) => {
 
     }, [sky])
 
+    const actualizar = async() =>{ //hace un get para actualizar la base de datos
+        const carpas = await axios.get('http://localhost:8080/api/usuarios')
+            setBase(carpas.data.carpas)
+    }
+
+    useEffect( () => { // acutalizaciones
+            actualizar()
+        }
+    , [  showTabla ])
+
+    const finalizar = async () => {
+        axios.put(`http://localhost:8080/api/usuarios/${id}`,{estado:false, nombre:"No disponible" });
+         
+            setShowTabla(false)
+            actualizar()
+
+    }
+
+    const alquilar = async() => {
+        axios.put(`http://localhost:8080/api/usuarios/${id}`,{estado:true, nombre:nombre}) 
+       
+            setShowTabla(false)
+            actualizar()
+    
+    }
+
+    const comprar = () =>{
+        axios.put(`http://localhost:8080/api/usuarios/${base[numero]._id}`, {restaurant:{comida:'JUANNNNNNNNNNNNNNNN', precio:50}})
+        
+    }
+
+    
 
     const value ={
+
+        menu: [menu, setMenu],
         base: [ base,setBase ],
         temperatura: [temperatura, setTemperatura],
         sky: [sky, setSky],
-        cielo: [cielo, setCielo]
+        cielo: [cielo, setCielo],
+        id: [id, setId],
+        capacidad: [capacidad, setCapacidad],
+        precio: [precio,setPrecio],
+        estado: [estado, setEstado],
+        disponible: [disponible, setDisponible],
+        nombre: [nombre,setNombre],
+        pago: [pago, setPago],
+        carpa: [carpa, setCarpa],
+        showTabla: [showTabla, setShowTabla],
+        showRmodal: [showRmodal, setShowRmodal],
+        seleccion: [seleccion, setSeleccion],
+        numero: [numero, setNumero],
+        finalizar: finalizar,
+        alquilar: alquilar,
+        comprar: comprar,
+        //baseNombre: baseNombre
 
     }
 

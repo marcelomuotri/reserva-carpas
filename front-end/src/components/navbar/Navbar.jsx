@@ -3,6 +3,7 @@ import { DataContext } from '../context/DataProvider'
 import sol from '../../assets/clima/sol.png'
 import nube from '../../assets/clima/nube.png'
 import lluvia from '../../assets/clima/lluvia.png'
+import Agregar from './modales/Agregar'
 
 const Navbar = () => {
 
@@ -15,11 +16,12 @@ const Navbar = () => {
 
     useEffect( async() => {
         // hasta aca dejo el balneario, tengo que subir las fotos a github y afilar los states, pero ya lo tengo
-        if(cielo == "foto2"){
-            setIcono({sol})
-            console.log("entre")
-        }else {
-            console.log("no entre")
+        if(cielo == "foto1"){
+            setIcono(sol)
+        }else if(cielo == "foto2") {
+            setIcono(nube)
+        }else if(cielo == "foto3"){
+            setIcono(lluvia)
         }
         
     }, [cielo])
@@ -30,7 +32,7 @@ const Navbar = () => {
             <ul>
                 <li>Clima en Pinamar: {temperatura}</li>
                 <img src={icono} className="navbar__icono"/>
-
+        
             </ul>
         </div>
     )
