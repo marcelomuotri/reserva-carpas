@@ -1,56 +1,83 @@
 [
     {
+        "numero": 0,
         "nombre": "paty",
         "precio": "50",
-        "url":"https://www.hogar.mapfre.es/media/2018/09/hamburguesa-sencilla.jpg",
+        "url": "https://raw.githubusercontent.com/marcelomuotri/reserva-carpas/master/front-end/src/assets/comida/hamburguesa.png",
+        "color": "rmodal__contImagenesH",
         "complementos": [
             {
-                "complemento": "queso",
-                "precio": 10
+                "complemento": "Queso",
+                "precio": 10,
+                "color": "lightblue"
             },
             {
-                "complemento": "jamon",
-                "precio": 12
+                "complemento": "Jamon",
+                "precio": 12,
+                "color": "lightblue"
             },
             {
-                "complemento": "lechuga y tomate",
-                "precio": 8
+                "complemento": "Lechuga y tomate",
+                "precio": 8,
+                "color": "lightblue"
             },
             {
-                "complemento": "huevo",
-                "precio": 5
+                "complemento": "Huevo",
+                "precio": 5,
+                "color": "lightblue"
             }
         ]
     },
     {
+        "numero": 1,
         "nombre": "pancho",
         "precio": "40",
-        "url":"https://cdn-icons-png.flaticon.com/512/1574/1574284.png",
+        "url": "https://raw.githubusercontent.com/marcelomuotri/reserva-carpas/master/front-end/src/assets/comida/pancho.png",
+        "color": "rmodal__contImagenesP",
         "complementos": [
             {
-                "complemento": "queso",
-                "precio": 10
+                "complemento": "Queso",
+                "precio": 10,
+                "color": "green"
             },
             {
-                "complemento": "papita",
-                "precio": 5
+                "complemento": "Papita",
+                "precio": 5,
+                "color": "green"
             },
             {
-                "complemento": "huevo",
-                "precio": 5
+                "complemento": "Huevo",
+                "precio": 5,
+                "color": "green"
             }
         ]
     },
     {
-        "nombre": "papasfritas",
-        "precio": "30",
-        "url":"https://cdn-icons.flaticon.com/png/512/3259/premium/3259009.png?token=exp=1640534495~hmac=22b1d9511116dc5886a4a888ca9a288d",
+        "numero": 2,
+        "nombre": "pizza",
+        "precio": "60",
+        "url": "https://raw.githubusercontent.com/marcelomuotri/reserva-carpas/master/front-end/src/assets/comida/papas.png",
+        "color": "rmodal__contImagenesF",
         "complementos": [
             {
-                "complemento": "chedar",
-                "precio": 10
+                "complemento": "Chedar",
+                "precio": 10,
+                "color": "red"
+            }
+        ]
+    },
+    {
+        "numero": 3,
+        "nombre": "papasfritas",
+        "precio": "30",
+        "url": "https://raw.githubusercontent.com/marcelomuotri/reserva-carpas/master/front-end/src/assets/comida/papas.png",
+        "color": "rmodal__contImagenesF",
+        "complementos": [
+            {
+                "complemento": "Chedar",
+                "precio": 10,
+                "color": "red"
             }
         ]
     }
-    
 ]
