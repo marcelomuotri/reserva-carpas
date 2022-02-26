@@ -1,8 +1,8 @@
 [
     {
         "numero": 0,
-        "nombre": "paty",
-        "precio": "50",
+        "nombre": "Hamburguesa",
+        "precio": 50,
         "url": "https://raw.githubusercontent.com/marcelomuotri/reserva-carpas/master/front-end/src/assets/comida/hamburguesa.png",
         "color": "rmodal__contImagenesH",
         "complementos": [
@@ -30,53 +30,68 @@
     },
     {
         "numero": 1,
-        "nombre": "pancho",
-        "precio": "40",
+        "nombre": "Pancho",
+        "precio": 40,
         "url": "https://raw.githubusercontent.com/marcelomuotri/reserva-carpas/master/front-end/src/assets/comida/pancho.png",
         "color": "rmodal__contImagenesP",
         "complementos": [
             {
                 "complemento": "Queso",
                 "precio": 10,
-                "color": "green"
+                "color": "lightgreen"
             },
             {
                 "complemento": "Papita",
                 "precio": 5,
-                "color": "green"
+                "color": "lightgreen"
             },
             {
                 "complemento": "Huevo",
                 "precio": 5,
-                "color": "green"
+                "color": "lightgreen"
             }
         ]
     },
     {
         "numero": 2,
-        "nombre": "pizza",
-        "precio": "60",
-        "url": "https://raw.githubusercontent.com/marcelomuotri/reserva-carpas/master/front-end/src/assets/comida/papas.png",
-        "color": "rmodal__contImagenesF",
+        "nombre": "Pizza",
+        "precio": 60,
+        "url": "https://raw.githubusercontent.com/marcelomuotri/reserva-carpas/master/front-end/src/assets/comida/pizza.png",
+        "color": "rmodal__contImagenesM",
         "complementos": [
             {
-                "complemento": "Chedar",
+                "complemento": "Margarita",
+                "precio": 0,
+                "color": "lightgray"
+            },
+            {
+                "complemento": "Fugazzeta",
                 "precio": 10,
-                "color": "red"
+                "color": "lightgray"
+            },
+            {
+                "complemento": "Peperoni",
+                "precio": 15,
+                "color": "lightgray"
+            },
+            {
+                "complemento": "Margarita con Jamon",
+                "precio": 15,
+                "color": "lightgray"
             }
         ]
     },
     {
         "numero": 3,
-        "nombre": "papasfritas",
-        "precio": "30",
+        "nombre": "Papasfritas",
+        "precio": 30,
         "url": "https://raw.githubusercontent.com/marcelomuotri/reserva-carpas/master/front-end/src/assets/comida/papas.png",
         "color": "rmodal__contImagenesF",
         "complementos": [
             {
                 "complemento": "Chedar",
                 "precio": 10,
-                "color": "red"
+                "color": "lightsalmon"
             }
         ]
     }

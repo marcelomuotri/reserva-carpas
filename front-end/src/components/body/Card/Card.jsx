@@ -18,6 +18,8 @@ const Card = (props) => {
     const [pago, setPago] = value.pago
     const [id, setId] = value.id
     const [base, setBase] = value.base
+    const [arrResto, setArrResto] = value.arrResto
+    const calcularPrecioTotal = value.calcularPrecioTotal
 
 
     const prueba = useRef(null)
@@ -32,6 +34,10 @@ const Card = (props) => {
         setEstado(props.estado)
         setNombre(props.nombre)
         setId(props.id)
+        setArrResto(calcularPrecioTotal(props.restaurant))
+        
+
+        
 
         if (props.pago == true) {
             setPago("PAGADO")

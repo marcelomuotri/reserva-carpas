@@ -16,10 +16,11 @@ const Tabla = () => {
     const [disponible, setDisponible] = value.disponible
     const [nombre, setNombre] = value.nombre
     const [pago, setPago] = value.pago
+    const [arrResto, setArrResto] = value.arrResto
+
     const finalizar = value.finalizar
     const alquilar = value.alquilar
 
-    const [hola, setHola ] = useState('Hola')
 
     const handleClose = () => setShowTabla(false);
     
@@ -47,7 +48,8 @@ const Tabla = () => {
                     {estado ?
                         <>
                         <p className="tabla__datos"> Nombre: {nombre}</p>
-                        <p className="tabla__datos"> Pago: {pago}</p>
+                        <p className="tabla__datos"> Restaurant: ${arrResto}</p>
+                       
                          </>
                          :
                          <>
@@ -61,13 +63,7 @@ const Tabla = () => {
                             
 
                         />    
-                        <Form.Control
-                            
-                            className="agregar__input"
-                            size='lg'
-                            type="text"
-                            placeholder="Pago?"      
-                        />
+                        
                         </>}
 
 

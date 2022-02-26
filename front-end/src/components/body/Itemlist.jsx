@@ -21,7 +21,7 @@ const Itemlist = () => {
         <div className="row">
         {base.map((item) => (
                     <div key={item.id} style={divStyle} className='col-lg-3'>
-                        <Card numero={item.numero} precio={item.precio} capacidad={item.capacidad} estado={item.estado} pago={item.pago} nombre={item.nombre} id={item._id} />
+                        <Card numero={item.numero} precio={item.precio} capacidad={item.capacidad} estado={item.estado} pago={item.pago} nombre={item.nombre} id={item._id} restaurant={item.restaurant} />
                     </div>
                     )
                     )
