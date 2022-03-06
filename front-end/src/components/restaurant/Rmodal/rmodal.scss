@@ -51,6 +51,10 @@
         background-color:lightsalmon;
         border-radius: 10px;
     }
+    &__contImagenesB:hover {
+        background-color: lightpink;
+        border-radius: 10px;
+    }
     ///////////////////////////////////////////////
     &__imagenes {
         width: 50%;
@@ -90,6 +94,10 @@
     background-color: lightsalmon;
     border: none;
 }
+.lightpink{
+    background-color: lightpink;
+    border:none
+}
 
 //animacion
 @keyframes animar {
@@ -105,4 +113,7 @@
 .animar{
     animation-name: animar;
     animation-duration: 2s;
+    
 }
+
+

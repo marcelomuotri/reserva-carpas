@@ -92,7 +92,42 @@
                 "complemento": "Chedar",
                 "precio": 10,
                 "color": "lightsalmon"
+            },
+            {
+                "complemento": "Chedar y panceta",
+                "precio": 20,
+                "color": "lightsalmon"
             }
+        ]
+    },
+    {
+        "numero": 4,
+        "nombre": "Botella",
+        "precio": 0,
+        "url": "https://raw.githubusercontent.com/marcelomuotri/reserva-carpas/master/front-end/src/assets/comida/botella.png",
+        "color": "rmodal__contImagenesB",
+        "complementos": [
+            {
+                "complemento": "Coca Cola",
+                "precio": 10,
+                "color": "lightpink"
+            },
+            {
+                "complemento": "Fanta",
+                "precio": 10,
+                "color": "lightpink"
+            },
+            {
+                "complemento": "Sprite",
+                "precio": 10,
+                "color": "lightpink"
+            },
+            {
+                "complemento": "Agua",
+                "precio": 5,
+                "color": "lightpink"
+            }
+
         ]
     }
 ]
