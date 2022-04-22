@@ -22,6 +22,9 @@ export const Dataprovider = (props) => {
     const [showRmodal, setShowRmodal] = useState(false)
     const [numero, setNumero] = useState('Seleccione una carpa')
 
+    //botones para abrir el modal del ticket
+    const [showTicket, setShowTicket] = useState(false);
+
     //botones para abrir el modal de validacion
 
     const [modalValidacion, setModalValidacion] = useState(false)
@@ -83,6 +86,8 @@ export const Dataprovider = (props) => {
         axios.put(`http://localhost:8080/api/usuarios/${id}`, { estado: false, nombre: "No disponible", restaurant: [] });
 
         setShowTabla(false)
+        setShowTicket(false)
+
         actualizar()
 
     }
@@ -131,6 +136,7 @@ export const Dataprovider = (props) => {
         carpa: [carpa, setCarpa],
         showTabla: [showTabla, setShowTabla],
         showRmodal: [showRmodal, setShowRmodal],
+        showTicket: [showTicket, setShowTicket],
         seleccion: [seleccion, setSeleccion],
         numero: [numero, setNumero],
         pedido: [pedido, setPedido],

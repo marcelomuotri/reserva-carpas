@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap';
 import { DataContext } from '../../context/DataProvider';
 import axios from 'axios';
+import Ticket from './ticket/Ticket';
 
 const Tabla = () => {
 
@@ -17,12 +18,14 @@ const Tabla = () => {
     const [nombre, setNombre] = value.nombre
     const [pago, setPago] = value.pago
     const [arrResto, setArrResto] = value.arrResto
+    const [showTicket, setShowTicket] = value.showTicket
 
-    const finalizar = value.finalizar
+    
     const alquilar = value.alquilar
 
 
     const handleClose = () => setShowTabla(false);
+    const abrirTicket = () => setShowTicket(true)
     
 
     return (
@@ -72,7 +75,7 @@ const Tabla = () => {
 
                 <Modal.Footer className="tabla__contenedorBoton">
                     {estado?
-                    <Button  onClick= { ()=>finalizar()} className="tabla__boton" >
+                    <Button  onClick= { ()=>abrirTicket()} className="tabla__boton" >
                         Finalizar
                     </Button>
                     :
@@ -83,6 +86,7 @@ const Tabla = () => {
 
                 </Modal.Footer>
             </Modal>
+            <Ticket/>
 
         </div>
     )

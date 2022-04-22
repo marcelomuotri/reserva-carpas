@@ -9,12 +9,10 @@ import Restaurant from './components/restaurant/Restaurant';
 function App() {
   return (
     <div >
-     <DataProvider>
-     <Navbar/>
-     <Restaurant/>
-
-      <Itemlist/>
-
+      <DataProvider>
+        <Navbar />
+        <Restaurant />
+        <Itemlist />
       </DataProvider>
 
     </div>

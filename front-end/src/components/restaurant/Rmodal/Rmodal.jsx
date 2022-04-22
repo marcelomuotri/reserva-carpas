@@ -25,6 +25,7 @@ const Rmodal = () => {
 
     const comprar = value.comprar
 
+    const [soloNom, setSoloNom] = useState([])
     const [seleccion, setSeleccion] = useState(0)
     const [producto, setProducto] = useState('')
     const [precio, setPrecio] = useState(0)
@@ -34,7 +35,7 @@ const Rmodal = () => {
     const [mostrarComplementos, setMostrarComplementos] = useState(false)
     const [open, setOpen] = useState(false);
     const [showTotal, setShowTotal] = useState(false);
-    const [totalPedido, setTotalPedido] = useState(5);
+    const [totalPedido, setTotalPedido] = useState(0);
 
 
     const animacion = useRef(null)
@@ -61,6 +62,25 @@ const Rmodal = () => {
         }
     }, [pedido]);
 
+    useEffect(() => {
+
+        const nombres = []
+        base.forEach(function agregar(element, index) {
+
+            if (element.nombre == "No disponible") {
+                console.log("no")
+            }
+            else {
+                let meter = { "nombre": element.nombre, "numero":  index }
+                nombres.push(meter)
+
+            }
+        });
+        setSoloNom(nombres)
+
+    }, [showRmodal])
+
+
 
 
     useEffect(() => {/* para resetear pedido cuando pongo comprar */
@@ -82,7 +102,7 @@ const Rmodal = () => {
     }
 
     const seleccionar = (selecSelec, selecProducto, selecPrecio) => {
-        if (nombreR === "-") {
+        if (nombreR === "") {
             setModalValidacion(true)
             setTextoValidacion('Por favor, ingrese un numero de Carpa')
         }
@@ -106,14 +126,14 @@ const Rmodal = () => {
     }
 
     const eliminarItem = (id) => {
-        
-        pedido.splice( id , 1 )
-        
+
+        pedido.splice(id, 1)
+
         setPedido([...pedido])
     }
 
     const agregarCarrito = () => {
-        if (nombreR === "-" || nombreR === "No disponible") {
+        if (nombreR === "" || nombreR === "No disponible") {
             setModalValidacion(true)
             setTextoValidacion('Por favor, ingrese un numero de Carpa')
         }
@@ -167,8 +187,8 @@ const Rmodal = () => {
                 <Modal.Body>
 
                     <Dropdown >{/* NUMERO DE CARPA Y NOMBRE */}
-                        <Dropdown.Toggle className="rmodal__dropdown" variant="success" id="dropdown-basic">
-                            {numero + " - " + nombreR}
+                        <Dropdown.Toggle className="rmodal__dropdown" variant="success" id="dropdown-basic"  >
+                            {numero + 1 + " - " + nombreR}
                         </Dropdown.Toggle>
 
                         {nombreR &&
@@ -176,13 +196,11 @@ const Rmodal = () => {
                         }
 
                         <Dropdown.Menu className="rmodal__dropdown">
-                            {base.map((item) => (
-                                <Dropdown.Item onClick={() => cambiar(item.numero, item.nombre)}>{item.numero} - {item.nombre}</Dropdown.Item>
-
-                            )
+                            {soloNom.map((item) => (
+                                <Dropdown.Item onClick={() => cambiar(item.numero, item.nombre)} >{item.numero +1 } - {item.nombre} </Dropdown.Item>
+                            )/////ponerle un numero indice
                             )
                             }
-
                         </Dropdown.Menu>
                     </Dropdown>
 
@@ -199,7 +217,6 @@ const Rmodal = () => {
                             )
                         }
                     </div>
-
                     {producto &&
                         <div className="rmodal__adherezos">Quieres agregarle algo a tu {producto}</div>
                     }
@@ -224,7 +241,7 @@ const Rmodal = () => {
                             {pedido.map((item, index) => (
                                 <div className="rmodal__contItemPedido">
                                     <h4 className="rmodal__itemPedido">{item.producto} con {item.complemento} = {item.precioTotal} </h4>
-                                    <Button variant="danger" onClick={()=>eliminarItem(index)}>Eliminar</Button>
+                                    <Button variant="danger" onClick={() => eliminarItem(index)}>Eliminar</Button>
                                 </div>
 
                             )
