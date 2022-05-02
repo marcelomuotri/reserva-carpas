@@ -2,8 +2,9 @@ import React, { useContext, useState, useRef, useEffect } from 'react'
 import { Button, Modal, Form, Dropdown } from 'react-bootstrap';
 import { DataContext } from '../../context/DataProvider';
 import ModalValidacion from './modalValidacion/ModalValidacion'
-
-
+import Compras from './RmodalParts/Compras';
+import Imagenes from './RmodalParts/Imagenes';
+import NumNom from './RmodalParts/NumNom';
 
 
 const Rmodal = () => {
@@ -15,18 +16,16 @@ const Rmodal = () => {
     const [numero, setNumero] = value.numero
     const [menu, setMenu] = value.menu
     const [pedido, setPedido] = value.pedido
-    const [arrResto, setArrResto] = value.arrResto
     const [nombreR, setNombreR] = value.nombreR
+
 
     //modales de validacion
     const [modalValidacion, setModalValidacion] = value.modalValidacion
     const [textoValidacion, setTextoValidacion] = value.textoValidacion
 
-
     const comprar = value.comprar
 
-    const [soloNom, setSoloNom] = useState([])
-    const [seleccion, setSeleccion] = useState(0)
+    const [seleccionComp, setSeleccionComp] = useState()
     const [producto, setProducto] = useState('')
     const [precio, setPrecio] = useState(0)
     const [complemento, setComplemento] = useState('')
@@ -37,20 +36,18 @@ const Rmodal = () => {
     const [showTotal, setShowTotal] = useState(false);
     const [totalPedido, setTotalPedido] = useState(0);
 
-
     const animacion = useRef(null)
 
-    useEffect(() => {/* para cargar el menu ya guardado en cada carpa */
-        if (numero === "Seleccione una carpa") {
+    useEffect(() => {/* para cargar el menu ya guardado en cada mesa */
+        if (numero === "Seleccione una mesa") {
         }
         else {
-            setPedido(base[numero - 1].restaurant)
+            setPedido(base[numero].restaurant)
         }
     }, [nombreR]);
 
     useEffect(() => { /* es para cargar el total cuando cambia "pedido" */
         if (pedido === '') {
-
         }
         else {
             var sum = 0;
@@ -61,27 +58,6 @@ const Rmodal = () => {
             setShowTotal(true)
         }
     }, [pedido]);
-
-    useEffect(() => {
-
-        const nombres = []
-        base.forEach(function agregar(element, index) {
-
-            if (element.nombre == "No disponible") {
-                console.log("no")
-            }
-            else {
-                let meter = { "nombre": element.nombre, "numero":  index }
-                nombres.push(meter)
-
-            }
-        });
-        setSoloNom(nombres)
-
-    }, [showRmodal])
-
-
-
 
     useEffect(() => {/* para resetear pedido cuando pongo comprar */
         if (showRmodal === false) {
@@ -96,18 +72,14 @@ const Rmodal = () => {
         setMostrarComplementos(false)
         setNombreR('')
     }
-    const cambiar = (numero, nombre) => {
-        setNumero(numero)
-        setNombreR(nombre)
-    }
 
     const seleccionar = (selecSelec, selecProducto, selecPrecio) => {
         if (nombreR === "") {
             setModalValidacion(true)
-            setTextoValidacion('Por favor, ingrese un numero de Carpa')
+            setTextoValidacion('Por favor, ingrese un numero de Mesa')
         }
         else {
-            setSeleccion(selecSelec)
+            setSeleccionComp(selecSelec)
             setProducto(selecProducto)
             setPrecio(selecPrecio)
             setMostrarComplementos(true)
@@ -128,14 +100,13 @@ const Rmodal = () => {
     const eliminarItem = (id) => {
 
         pedido.splice(id, 1)
-
         setPedido([...pedido])
     }
 
     const agregarCarrito = () => {
         if (nombreR === "" || nombreR === "No disponible") {
             setModalValidacion(true)
-            setTextoValidacion('Por favor, ingrese un numero de Carpa')
+            setTextoValidacion('Por favor, ingrese un numero de Mesa')
         }
         else if (producto === '') {
             setModalValidacion(true)
@@ -171,9 +142,6 @@ const Rmodal = () => {
         setShowTotal(false)
     }
 
-
-
-
     return (
 
         <div className="rmodal ">
@@ -186,78 +154,26 @@ const Rmodal = () => {
 
                 <Modal.Body>
 
-                    <Dropdown >{/* NUMERO DE CARPA Y NOMBRE */}
-                        <Dropdown.Toggle className="rmodal__dropdown" variant="success" id="dropdown-basic"  >
-                            {numero + 1 + " - " + nombreR}
-                        </Dropdown.Toggle>
+                    {/* Nombre y numero */}
+                    <NumNom numero={numero} nombreR={nombreR} />
 
-                        {nombreR &&
-                            <h2 className="rmodal__pedido">Pedido para {nombreR} :</h2>
-                        }
+                    {/* imagenes y complementos */}
+                    <Imagenes seleccionar={seleccionar}
+                        borrar={borrar}
+                        seleccionarCompl={seleccionarCompl}
+                        animacion={animacion}
+                        mostrarComplementos={mostrarComplementos}
+                        seleccionComp={seleccionComp}
+                    />
 
-                        <Dropdown.Menu className="rmodal__dropdown">
-                            {soloNom.map((item) => (
-                                <Dropdown.Item onClick={() => cambiar(item.numero, item.nombre)} >{item.numero +1 } - {item.nombre} </Dropdown.Item>
-                            )/////ponerle un numero indice
-                            )
-                            }
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    {/* mostrar lo que vas comprando y total */}
+                    <Compras pedido={pedido}
+                        eliminarItem={eliminarItem}
+                        showTotal={showTotal}
+                        totalPedido={totalPedido}
+                    />
 
-                    <div className="flex">{/* FOTO DE PRODUCTO */}
-                        {
-                            menu.map((item) => (
-                                <>
-                                    <div className={item.color + " rmodal__contImagen"} >
-                                        <img onMouseLeave={() => borrar()} onClick={() => seleccionar(item.numero, item.nombre, item.precio)} className="rmodal__imagenes" src={item.url} alt={item.nombre}></img>
-                                        <h3>${item.precio}</h3>
-                                    </div>
-                                </>
-                            )
-                            )
-                        }
-                    </div>
-                    {producto &&
-                        <div className="rmodal__adherezos">Quieres agregarle algo a tu {producto}</div>
-                    }
-
-                    <div ref={animacion}>{/* MOSTRAR COMPLEMENTOS */}
-                        {mostrarComplementos &&
-                            <div className="rmodal__complementos">
-                                {menu[seleccion].complementos.map((item) => (
-                                    <Button onClick={() => seleccionarCompl(item.precio, item.complemento)} className={item.color + " rmodal__boton"}>
-                                        <h2>{item.complemento} - ${item.precio} </h2>
-                                    </Button>
-                                )
-                                )
-                                }
-                            </div>
-                        }
-                    </div>
-                    {/* mostrar lo que vas comprando */}
-
-                    {pedido &&
-                        <div className="rmodal__pedido animar">
-                            {pedido.map((item, index) => (
-                                <div className="rmodal__contItemPedido">
-                                    <h4 className="rmodal__itemPedido">{item.producto} con {item.complemento} = {item.precioTotal} </h4>
-                                    <Button variant="danger" onClick={() => eliminarItem(index)}>Eliminar</Button>
-                                </div>
-
-                            )
-                            )
-                            }
-
-                        </div>
-                    }
                 </Modal.Body>
-
-                {showTotal &&
-                    <div>
-                        <h4 className="rmodal__contItemPedido rmodal--total">Total = {totalPedido}</h4>
-                    </div>
-                }
-
 
                 <Modal.Footer className="tabla__contenedorBoton">
                     <Button onClick={() => agregarCarrito()} className="tabla__boton " >

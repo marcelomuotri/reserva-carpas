@@ -1,6 +1,14 @@
 .rmodal {
     &__dropdown {
         font-size: 2rem;
+        background-color: #206e8c;
+    }
+    &__dropdown:hover{
+        background-color: #206e8c;
+    }
+
+    &__opciones{
+        font-size: 2rem;
     }
 
     &__pedido{
@@ -9,8 +17,6 @@
 
     &__contItemPedido{
         display: flex;
-        border: 3px solid #198754;
-        border-radius: 100px;
         padding: 7px;
        justify-content: space-between;
        margin-bottom: 5px;
@@ -20,11 +26,18 @@
     &__itemPedido{
         margin-bottom: 0px;
         padding-top: 3px;
+        width: 70%;
     }
-    
 
-    &--total{
-        border-color: blue;
+    &__subtotal{
+        padding-top: 3px;
+        margin-bottom: 0px;
+    }
+
+    &__totalPedido{
+        text-align: center;
+        padding-bottom: 5px;
+        
     }
 
     &__contImagen {
@@ -32,7 +45,6 @@
         display: flex;
         justify-content: center;
         cursor: pointer;
-        
     }
     ////////////////////////////////////////////////////
     &__contImagenesH:hover {
@@ -116,4 +128,22 @@
     
 }
 
+//neutralizadores
+.btn-primary{
+    border:none;
+}
 
+.btn-primary:hover{
+    background-color: #206e8c;
+}
+
+.show>.btn-primary.dropdown-toggle{
+    background-color: #206e8c;
+    border-color: #206e8c;
+}
+
+.btn-primary:focus{
+    background-color: #206e8c;
+    border-color: #206e8c;
+    box-shadow: none;
+}

@@ -1,7 +1,28 @@
 .ticket{
 
-    &__lista{
+   
+    &__imagenes{
+        width: 8%;
+        height: 95%;
+        margin-right: 7px;
+    }
+    &__lineas{
+        font-size: 1.5rem;
         display: flex;
         justify-content: space-between;
+        margin: 5px 0 5px 0 ;
     }
+    &__total{
+        display: flex;
+        justify-content: end;
+    }
+}
+
+
+.flexx{
+    display: flex;
+}
+
+p{
+    margin-top: 7px;
 }

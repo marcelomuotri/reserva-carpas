@@ -1,0 +1,25 @@
+.boton{
+    
+    &__contenedor{
+        display: flex;
+        justify-content: center;
+    }
+
+    &__botonn{
+        
+        background-color: green;
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+        border-radius: 16px;
+        margin-top: 2rem;
+        padding: 1rem 1rem 1rem 1rem;
+        border: none;
+        font-weight: 500;
+        
+    }
+
+    &__texto{
+        text-decoration: none;
+        color: black;
+        font-size: 1.5rem;
+    }
+}

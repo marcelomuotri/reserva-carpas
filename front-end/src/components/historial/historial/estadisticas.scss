@@ -1,0 +1,13 @@
+.estadisticas{
+    
+    &__contenedor{
+        display: flex;
+        justify-content: center;
+        margin-top: 3rem;
+    }
+    &__tabla{
+        font-size: 1.5rem;
+        background-color: white;
+        border-radius: 10px;
+    }
+}

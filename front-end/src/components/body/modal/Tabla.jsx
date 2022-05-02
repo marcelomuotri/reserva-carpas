@@ -12,20 +12,35 @@ const Tabla = () => {
     
     const [seleccion, setSeleccion] = value.seleccion
     const [capacidad, setCapacidad] = value.capacidad
-    const [precio, setPrecio] = value.precio
     const [estado, setEstado] = value.estado
     const [disponible, setDisponible] = value.disponible
     const [nombre, setNombre] = value.nombre
     const [pago, setPago] = value.pago
     const [arrResto, setArrResto] = value.arrResto
-    const [showTicket, setShowTicket] = value.showTicket
+    const setShowTicket = value.showTicket[1]
+
+    const [historial, setHistorial] = value.historial
+    const [fecha, setFecha]= value.fecha
+    const [hora, setHora] = value.hora
+    const [base, setBase] = value.base
+    const [nHistorial, setNHistorial] = value.nHistorial
 
     
     const alquilar = value.alquilar
 
 
     const handleClose = () => setShowTabla(false);
-    const abrirTicket = () => setShowTicket(true)
+    const abrirTicket = () => {
+        setShowTicket(true)
+        setHistorial({
+            "fecha": fecha,
+            "horaR": hora,
+            "nombre": nombre,
+            "pedido": base[nHistorial - 1].restaurant,
+            "mesa": seleccion,
+            "total": arrResto
+     })
+    }
     
 
     return (
@@ -34,7 +49,7 @@ const Tabla = () => {
             <Modal show={showTabla} onHide={handleClose} animation={false}>
 
                 <Modal.Header closeButton>
-                    <h2 className="tabla__titulo">CARPA {seleccion}  </h2>
+                    <h2 className="tabla__titulo">MESA {seleccion}  </h2>
                 </Modal.Header>
 
                 <Modal.Body>
@@ -45,7 +60,7 @@ const Tabla = () => {
                         type="text" 
                         placeholder="Numero" /> */}
                     <p className="tabla__datos">Capacidad:  {capacidad} personas</p>
-                    <p className="tabla__datos">Precio: $ {precio}</p>
+                
                     <p className="tabla__datos">Estado: {disponible}</p>
                     
                     {estado ?
@@ -86,7 +101,7 @@ const Tabla = () => {
 
                 </Modal.Footer>
             </Modal>
-            <Ticket/>
+            <Ticket nombre={nombre}/>
 
         </div>
     )

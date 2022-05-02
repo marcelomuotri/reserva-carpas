@@ -8,19 +8,19 @@ export const Dataprovider = (props) => {
 
     const [menu, setMenu] = useState(data)
     const [base, setBase] = useState([])
-    const [temperatura, setTemperatura] = useState('')
-    const [sky, setSky] = useState('')
-    const [cielo, setCielo] = useState('')
+    const [estad, setEstad] = useState([])
 
     //boton para abrir la tabla
 
     const [showTabla, setShowTabla] = useState(false)
-    const [seleccion, setSeleccion] = useState('')
+    const [seleccion, setSeleccion] = useState(false)
 
     //boton para abrir la tabla del restaurtante
 
     const [showRmodal, setShowRmodal] = useState(false)
-    const [numero, setNumero] = useState('Seleccione una carpa')
+    const [numero, setNumero] = useState('Seleccione una mesa')
+    const [seleccionComp, setSeleccionComp] = useState(0)
+
 
     //botones para abrir el modal del ticket
     const [showTicket, setShowTicket] = useState(false);
@@ -39,7 +39,6 @@ export const Dataprovider = (props) => {
     //estos son para guardar los datos del formulario
     const [id, setId] = useState('')
     const [capacidad, setCapacidad] = useState('')
-    const [precio, setPrecio] = useState('')
     const [nombre, setNombre] = useState('')
     const [disponible, setDisponible] = useState('')
     const [estado, setEstado] = useState(true)
@@ -47,60 +46,51 @@ export const Dataprovider = (props) => {
     const [carpa, setCarpa] = useState([])
     const [arrResto, setArrResto] = useState([])
 
+    //datos para historial
+    const [historial, setHistorial] = useState('')
+    const [hora, setHora] = useState("")
+    const [fecha, setFecha] = useState("")
+    const [nHistorial, setNHistorial] = useState(2)
 
-
-
-    //cargo la temperatura de pinamar en la api
-    useEffect(() => {
-        const getPost = async () => {
-
-            const data = await axios.get('https://api.openweathermap.org/data/2.5/weather?q=Pinamar&appid=ded74bcb977be8da0faa51c4400447e2&units=metric')
-            setTemperatura(data.data.main.temp)
-            setSky(data.data.weather[0].main)
-            //clear, clouds, rain
-
-            if (sky == "Clear") {
-                setCielo("foto1")
-            } else if (sky == "Clouds") {
-                setCielo("foto2")
-            } else if (sky == "Rain") {
-                setCielo("foto3")
-            }
-
-        }
-        getPost()
-
-    }, [sky])
+    
 
     const actualizar = async () => { //hace un get para actualizar la base de datos
         const carpas = await axios.get('http://localhost:8080/api/usuarios')
         setBase(carpas.data.carpas)
     }
 
-    useEffect(() => { // acutalizaciones
-        actualizar()
+    const actualizarHistorial = async () => { //hace un get para actualizar el historial
+        const historia = await axios.get('http://localhost:8080/api/usuarios/historial')
+        setEstad(historia.data.historiales)
     }
-        , [showTabla,showRmodal])
+    
 
-    const finalizar = async () => {
+    useEffect(() => { // actualizaciones
+        actualizar()
+        actualizarHistorial()
+    }
+        , [showTabla, showRmodal])
+
+    const finalizar = async () => { //hace put a la base de datos y actualiza
         axios.put(`http://localhost:8080/api/usuarios/${id}`, { estado: false, nombre: "No disponible", restaurant: [] });
 
         setShowTabla(false)
         setShowTicket(false)
+        axios.post(`http://localhost:8080/api/usuarios/historial`, { historial: historial })
 
         actualizar()
+        actualizarHistorial()
 
     }
 
-    const alquilar = async () => {
+    const alquilar = async () => { //hace un put a la base de datos y actualiza
         axios.put(`http://localhost:8080/api/usuarios/${id}`, { estado: true, nombre: nombre })
         setShowTabla(false)
         actualizar()
-
     }
 
-    const comprar = () => {
-        axios.put(`http://localhost:8080/api/usuarios/${base[numero - 1]._id}`, { restaurant: pedido })
+    const comprar = () => { //envia el pedido del restaurant y hace un put en el cliente y hace un reset
+        axios.put(`http://localhost:8080/api/usuarios/${base[numero]._id}`, { restaurant: pedido })
         actualizar()
         setPedido('')
         setShowRmodal(false)
@@ -108,10 +98,12 @@ export const Dataprovider = (props) => {
 
     }
 
-    
+    const guardarHistorial = () => {
+        axios.post(`http://localhost:8080/api/usuarios/historial`, { historial: historial })
+    }
 
-    const calcularPrecioTotal = (array) => {
-        var sum=0
+    const calcularPrecioTotal = (array) => { //va sumando los precios de los productos
+        var sum = 0
         for (let i = 0; i < array.length; i++) {
             sum += array[i].precioTotal
         }
@@ -123,12 +115,8 @@ export const Dataprovider = (props) => {
 
         menu: [menu, setMenu],
         base: [base, setBase],
-        temperatura: [temperatura, setTemperatura],
-        sky: [sky, setSky],
-        cielo: [cielo, setCielo],
         id: [id, setId],
         capacidad: [capacidad, setCapacidad],
-        precio: [precio, setPrecio],
         estado: [estado, setEstado],
         disponible: [disponible, setDisponible],
         nombre: [nombre, setNombre],
@@ -141,17 +129,22 @@ export const Dataprovider = (props) => {
         numero: [numero, setNumero],
         pedido: [pedido, setPedido],
         arrResto: [arrResto, setArrResto],
-        nombreR: [nombreR,setNombreR],
+        nombreR: [nombreR, setNombreR],
         modalValidacion: [modalValidacion, setModalValidacion],
         textoValidacion: [textoValidacion, setTextoValidacion],
         finalizar: finalizar,
         alquilar: alquilar,
         comprar: comprar,
-        calcularPrecioTotal: calcularPrecioTotal
-        
+        guardarHistorial: guardarHistorial,
+        calcularPrecioTotal: calcularPrecioTotal,
+        seleccionComp: [seleccionComp, setSeleccionComp],
+        hora: [hora, setHora],
+        fecha: [fecha, setFecha],
+        nHistorial: [nHistorial, setNHistorial],
+        historial: [historial, setHistorial],
+        estad: [estad, setEstad]
 
         //baseNombre: baseNombre
-
     }
 
     return (

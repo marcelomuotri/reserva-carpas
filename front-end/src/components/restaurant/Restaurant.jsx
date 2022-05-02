@@ -12,10 +12,11 @@ const Restaurant = () => {
 
     const openRestaurant = () => {
         setShowRmodal(true)
-        setNumero('Seleccione una carpa')
+        setNumero('Seleccione una mesa')
     }
     return (
         <div className="flex">
+             
             <div onClick={openRestaurant} className='restaurant'>
                 <h1 className="restaurant__texto">RESTAURANT</h1>
             </div>

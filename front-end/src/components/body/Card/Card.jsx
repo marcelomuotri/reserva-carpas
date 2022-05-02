@@ -11,7 +11,8 @@ const Card = (props) => {
     const [showTabla, setShowTabla] = value.showTabla
     const [seleccion, setSeleccion] = value.seleccion
     const [capacidad, setCapacidad] = value.capacidad
-    const [precio, setPrecio] = value.precio
+    const [nHistorial, setNHistorial] = value.nHistorial
+  
     const [estado, setEstado] = value.estado
     const [disponible, setDisponible] = value.disponible
     const [nombre, setNombre] = value.nombre
@@ -29,14 +30,12 @@ const Card = (props) => {
     const openTable = () => {
         setShowTabla(true)
         setSeleccion(props.numero)
+        setNHistorial(props.numero)
         setCapacidad(props.capacidad)
-        setPrecio(props.precio)
         setEstado(props.estado)
         setNombre(props.nombre)
         setId(props.id)
         setArrResto(calcularPrecioTotal(props.restaurant))
-        
-
         
 
         if (props.pago == true) {
