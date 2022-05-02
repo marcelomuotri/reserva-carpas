@@ -33,13 +33,11 @@ const UsuarioSchema = Schema({
         required: [true, 'El nombre del cliente es obligatorio']
     },
 
-    
-
     restaurant:{
         type:Array
-    }
+    },
 
-    
+
 
 })
 

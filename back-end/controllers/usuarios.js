@@ -3,6 +3,7 @@ const { response } = require('express');
 const bcryptjs = require('bcryptjs') //este es para las contraseñas
 
 const Carpa = require ('../models/usuario'); // aca traigo el modelo de la coleccion
+const Historial = require ('../models/historial') // aca traigo el modelo de historial
 
 // aca pongo las rutas que van a ir a user.js
 const usuariosGet = async(req = request, res = response) => {
@@ -54,6 +55,48 @@ const usuariosPut = async(req, res) => {
     })
 }
 
+const historialGet = async(req = request, res = response) => {
+
+    const query = {} // solo va a mostrar las que tengan estado: true
+
+    const [total, historiales] = await Promise.all([ //esto es lo mismo que lo de arriba
+        Historial.countDocuments( query ) ,
+        Historial.find( query ) // solo va a mostrar las que tengan estado: true
+        
+    ])
+    res.json({
+        total, 
+        historiales
+    })
+}
+
+const historialPost = async(req, res) => {
+
+     const {historial} = req.body  
+    
+    /* const historial = [{"name":"jorge"}] */
+
+    /* console.log(historia) */
+    
+    const historiales = new Historial ({historial})
+
+    try {
+        await historiales.save(); //guarda el historial
+        console.log("el historial fue guardado")
+        
+    } catch (error) {
+        
+        console.log("hubo un error")
+        console.log(error)
+        
+    }
+
+    res.json({ // 
+        historiales
+    })
+
+}
+
 const usuariosPost = async(req, res) => {
 
     //primero voy a confirmar mi middleware que cree en users.js
@@ -63,11 +106,7 @@ const usuariosPost = async(req, res) => {
 
     const carpas = new Carpa( { numero, capacidad, precio, estado, nombre, pago } ) // crea el modelo con lo que se ingreso en el body
 
-    // encriptar contraseña
-
-/*     const salt = bcryptjs.genSaltSync(); // esto es para encriptarlo 10 veces
-    usuario.password = bcryptjs.hashSync( password, salt) // em este lo encriptamos y pasamos 2 parametros, el password y la cantidad de veces que es 10
- */
+    
 
     // guardat en DB
     try {
@@ -104,5 +143,7 @@ module.exports = {
     usuariosGet,
     usuariosPost,
     usuariosPut,
-    usuariosDelete
+    usuariosDelete,
+    historialGet,
+    historialPost
 }

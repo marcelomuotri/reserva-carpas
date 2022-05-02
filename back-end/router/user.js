@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const { check } = require('express-validator');
-const { usuariosGet, usuariosPost, usuariosPut, usuariosDelete } = require('../controllers/usuarios');
+const { usuariosGet, usuariosPost, usuariosPut, usuariosDelete, historialGet, historialPost } = require('../controllers/usuarios');
 const {validarCampos} = require('../middlewares/validar-campos');
 const {esRoleValido, emailExiste, idExiste} = require('../helpers/db-validators')
 
@@ -9,6 +9,8 @@ const router = Router();
 
     //esto esta en usuarios.js
     router.get('/',  usuariosGet)
+    router.get('/historial',  historialGet)
+
 
     router.put('/:id', //lo primero es lo que recibe
         check('id', 'No es un ID valido').isMongoId(), // esto solo revisa el formato del id
@@ -28,6 +30,8 @@ const router = Router();
 
         
     ],  usuariosPost),
+
+    router.post('/historial' , historialPost)
 
         
        
